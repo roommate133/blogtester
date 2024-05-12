@@ -35,7 +35,7 @@
     {% if article.author == request.user.author %}
     
         <a href="{% url 'blog:edit-article' id=article.id %}" style="background:green" class="badge bg-success">Edit</a>
-        <a href="{% url 'blog:delete-article' pk=article.pk %}" style="background:red" class="badge bg-danger">Delete</a>
+        <a href="{% url 'blog:delete-article' id=article.id %}" style="background:red" class="badge bg-danger">Delete</a>
     {% endif %}
 </div>
 <hr>
@@ -73,35 +73,27 @@
                 </ul>
             </div>
         </div>
-        <nav class="d-flex justify-content-center align-items-center">
+        <nav aria-label="...">
             <ul class="pagination">
                 {% if page.has_previous %}
-                <li class="page-item">
+                <li class="page-item ">
                     <a class="page-link" href="?page={{page.previous_page_number}}">Previous</a>
                 </li>
-            {% else %}
-                <li class="page-item">
-                    <span class="page-link">Previous</span>
-                </li>
-            {% endif %}
-              {% for page_number in paginator.page_range  %}
+
+                {% else %}  
+                     <li class="page-item disable">
+                         <span class="page-link">Previous</span>
+                     </li>
+                {% endif %}
+              {% for page_number in paginator.page_range %}
               
               <li class="page-item {% if page_number == page.number %}active{% endif %}"><a class="page-link" href="?page={{page_number}}">{{page_number}}</a></li>
+              <li class="page-item active">
               {% endfor %}
-               {% comment %} <li class="page-item active" aria-current="page">
-                <span class="page-link">2</span>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li> {% endcomment %}
-              {% if page.has_next %}
+
               <li class="page-item">
-                <a class="page-link" href="?page={{page.next_page_number}}">next</a>
-                
-            </li>
-            {% else %}
-            <li class="page-item disable">
-                <span class="page-link">next</span>
-            </li>
-                {% endif %}
+                <a class="page-link" href="#">Next</a>
+              </li>
             </ul>
           </nav>
     </div>
