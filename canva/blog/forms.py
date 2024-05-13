@@ -6,6 +6,7 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model=Article
+        
         exclude=['view_count','author']
     
     def save(self,author):

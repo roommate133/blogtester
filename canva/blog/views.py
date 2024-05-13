@@ -21,15 +21,13 @@ def blog(request):
 
 
 
-def blog_detail(request):
-    article=Article.objects.all(id=id)  
-    return render(request,"blog-detail.html",context={'article':article})
-
+def blog_detail(request, id):
+    article = Article.objects.get(id=id)
+    return render(request, "blog-detail.html", context={'article': article})
 
 def add_article(request):
     if request.method=='POST':
         data=request.POST.copy()
-        data['author']=request.user.author.id
         form=ArticleForm(data=data,files=request.FILES)
         if form.is_valid():
             form.save(request.user.author)
